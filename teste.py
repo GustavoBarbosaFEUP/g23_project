@@ -1,39 +1,26 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 21 10:29:21 2025
-
-@author: tomas
-"""
-
-# -*- coding: utf-8 -*-
-
 db = 'FashionDesigners.db'
 
-#Uncomment to test class Person (select next 4 lines and press ctrl-1)
+#Uncomment to test class Fashion (select next 4 lines and press ctrl-1)
 from classes.fashion_show import Fashion_show
 test_class = Fashion_show
-ob = '1;David Horne;Algeria'
+ob = '1,three;East Richardbury;2025-02-11'
 db = 'FashionDesigners.db'
 
-#Uncomment to test class Cliente (select next two lines and press ctrl-1)
-# from classes.instructor import Instructor
-# test_class = Instructor
-# ob = '6;Troy Hunt;budget;cynthia98@example.org'
+#Uncomment to test class Designers (select next two lines and press ctrl-1)
+# from classes.designers import Designers
+# test_class = Designers
+# ob = '1;David Hurne;Algeria'
 
-#Uncomment to test class Product
-# from classes.product import Product
-# test_class = Product
-# ob='Product1;10.9;100'
+#Uncomment to test class Collections
+# from classes.collections import Collections
+# test_class = Collections
+# ob='1;cultural;even;Fall;2014'
 
-#Uncomment to test class Customer_login
-# from classes.customer import Customer
-# test_class = Customer
+#Uncomment to test class Designers_collections
+# from classes.designers_collections import Designers_collections
+# test_class = Designers_collections
+# ob ='46;117;85.16'
 
-#Uncomment to test class Order
-# from classes.customerorder import ustomerOrder
-# from classes.customer import Customer
-# Customer.read('data/business.db')
-# test_class = Order
 
 import datetime
 
