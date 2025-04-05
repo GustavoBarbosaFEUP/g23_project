@@ -1,25 +1,7 @@
-db = 'FashionDesigners.db'
-
-#Uncomment to test class Fashion (select next 4 lines and press ctrl-1)
-from classes.fashion_show import Fashion_show
-test_class = Fashion_show
-ob = '1,three;East Richardbury;2025-02-11'
-db = 'FashionDesigners.db'
-
-#Uncomment to test class Designers (select next two lines and press ctrl-1)
-# from classes.designers import Designers
-# test_class = Designers
-# ob = '1;David Hurne;Algeria'
-
-#Uncomment to test class Collections
-# from classes.collections import Collections
-# test_class = Collections
-# ob='1;cultural;even;Fall;2014'
-
-#Uncomment to test class Designers_collections
-# from classes.designers_collections import Designers_collections
-# test_class = Designers_collections
-# ob ='46;117;85.16'
+db='FashionDesigners.db'
+from classes.collections import Collections
+test_class = Collections
+ob='1;cultural;even;Fall;2014'
 
 
 import datetime
