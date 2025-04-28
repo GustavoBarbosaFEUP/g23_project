@@ -36,5 +36,5 @@ class Designers(Gclass):
     def nationality(self, nationality):
         self._nationality=nationality
     
-d=Designers(12,' gus', 'num')
+
 
