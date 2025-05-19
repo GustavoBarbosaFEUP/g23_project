@@ -1,0 +1,35 @@
+<div style="display: flex; align-items: flex-start;">
+    <!-- Formulário de pesquisa à esquerda -->
+    <div style="flex: 1;">
+        <h1>Fashion Shows</h1>
+        <form action="/fashion_shows" method="get">
+            <label for="fashion_id">ID:</label>
+            <input type="text" name="fashion_id" value="{{ fashion_id }}"><br><br>
+
+            <label for="show_name">Show Name:</label>
+            <input type="text" name="show_name" value="{{ show_name }}"><br><br>
+
+            <label for="venue">Venue:</label>
+            <input type="text" name="venue" value="{{ venue }}"><br><br>
+
+            <label for="date">Date:</label>
+            <input type="text" name="date" value="{{ date }}"><br><br>
+
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        {% if fashion_shows %}
+            <h2>Resultados:</h2>
+            {% for f in fashion_shows %}
+                <p>ID: {{ f.fashion_id }} | Show Name: {{ f.show_name }} | Venue: {{ f.venue }} | Date: {{ f.date }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Imagem à direita -->
+    <div style="flex: 1; text-align: center;"> 
+    <img src="{{ url_for('static', filename='images/fashion_shows.jpg') }}" alt="Designer Image" 
+         style="max-width:300px; height:auto; margin-top:50px; margin-left:-1200px;">
+</div>
+
+
