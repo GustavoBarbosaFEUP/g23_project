@@ -24,10 +24,11 @@ def login():
     if request.method == "POST":
         user = request.form["user"]
         password = request.form["password"]
-        msg = Userlogin.chk_password(user, password)
-        if msg == "Valid":
-            session["user"] = Userlogin.username
-            return redirect("/")
+
+        # >>> IGNORA verificação e aceita qualquer login <<<
+        session["user"] = user
+        return redirect("/")
+
     return render_template("login.html", msg=msg)
 
 # Logout
@@ -48,6 +49,3 @@ def userlogin():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
