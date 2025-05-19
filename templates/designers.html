@@ -1,0 +1,39 @@
+<div style="display: flex; align-items: flex-start;">
+    <!-- Formulário de pesquisa à esquerda -->
+    <div style="flex: 1;">
+        <h1>Designer</h1>
+        <form action="/designers" method="get">
+            <label for="id">ID:</label>
+            <input type="text" name="id" value="{{ id }}">
+            <br><br>
+            <label for="name">Name:</label>
+            <input type="text" name="name" value="{{ name }}">
+            <br><br>
+            <label for="nationality">Nationality:</label>
+            <input type="text" name="nationality" value="{{ nationality }}">
+            <br><br>
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        {% if designers %}
+            <h2>Resultados:</h2>
+            {% for d in designers %}
+                <p>ID: {{ d.designer_id }} | Nome: {{ d.name }} | Nacionalidade: {{ d.nationality }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Imagem à direita, mais próxima dos filtros -->
+    <div style="flex: 1; text-align: center;">
+        <img src="{{ url_for('static', filename='images/designer.jpg') }}" alt="Designer Image" 
+             style="max-width:300px; height:auto; margin-left:-1200px;">
+    </div>
+</div>
+
+
+
+
+
+
+
+
