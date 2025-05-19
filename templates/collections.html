@@ -1,0 +1,39 @@
+<div style="display: flex; align-items: flex-start;">
+    <!-- Formulário de pesquisa à esquerda -->
+    <div style="flex: 1;">
+        <h1>Collections</h1>
+        <form action="/collections" method="get">
+            <label for="collection_id">ID:</label>
+            <input type="text" name="collection_id" value="{{ collection_id }}">
+            <br><br>
+            <label for="style">Style:</label>
+            <input type="text" name="style" value="{{ style }}">
+            <br><br>
+            <label for="theme">Theme:</label>
+            <input type="text" name="theme" value="{{ theme }}">
+            <br><br>
+            <label for="season">Season:</label>
+            <input type="text" name="season" value="{{ season }}">
+            <br><br>
+            <label for="release_year">Release Year:</label>
+            <input type="text" name="release_year" value="{{ release_year }}">
+            <br><br>
+            <button type="submit">Pesquisar</button>
+        </form>
+
+        <!-- Resultados sempre aparecem -->
+        <h2>Resultados:</h2>
+        {% for c in collections %}
+            <p>ID: {{ c.collection_id }} | Style: {{ c.style }} | Theme: {{ c.theme }} | Season: {{ c.season }} | Release Year: {{ c.release_year }}</p>
+        {% endfor %}
+    </div>
+
+    <!-- Imagem à direita -->
+    <div style="flex: 1; text-align: center;"> 
+    <img src="{{ url_for('static', filename='images/collections.jpg') }}" alt="Designer Image" 
+         style="max-width:300px; height:auto; margin-top:50px; margin-left:-1200px;">
+</div>
+
+
+
+
