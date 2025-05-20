@@ -1,14 +1,36 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        position: relative;
+        min-height: 100vh;
+    }
+    .center-content {
+        padding-top: 80px; /* Sobe o título */
+    }
+    .footer-image {
+        position: absolute;
+        bottom: 100px; /* Sobe a imagem */
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 500px; /* Aumenta o tamanho da imagem */
+        opacity: 0.9;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="dados">
-    <br><br>
-    <h1>Userlogin demo PCII</h1>
+<div class="center-content">
+    <h1>Fashion Show</h1>
+    <h2>G23 - César Augusto, Domingos Almeida, Francisco Vilhena, Gustavo Barbosa, Rodrigo Castilho</h2>
 </div>
+
+<img src="{{ url_for('static', filename='images/home.jpg') }}" alt="Home Image" class="footer-image">
 {% endblock %}
 
 
