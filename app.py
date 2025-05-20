@@ -68,9 +68,9 @@ def fashionshows():
 def designerscollections():
     return render_template("designers_collections.html", ulogin=session.get("user"))
 
-@app.route("/Userlogin", methods=["GET", "POST"])
-def userlogin():
-    return indexUserlogin.index(path)
+#@app.route("/Userlogin", methods=["GET", "POST"])
+#def userlogin():
+ #   return indexUserlogin.index(path)
 
 @app.route("/designers", methods=["GET"])
 def designers_search():
