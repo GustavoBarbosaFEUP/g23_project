@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="dados">
+<div class="dados" style="text-align: center; margin-top: 100px;">
     <h1>Bem-vindo ao Dashboard</h1>
-    <p>Escolha a área que pretende visualizar:</p>
+    <p>Escolha a página que pretende visualizar:</p>
     <br>
     <button onclick="window.location.href='/designers'" class="button1">Designers</button>
+    <button onclick="window.location.href='/collections'" class="button1">Collections</button>
+    <button onclick="window.location.href='/fashion_shows'" class="button1">Fashion Shows</button>
+    <button onclick="window.location.href='/designers_collections'" class="button1">Designers Collections</button>
     <button onclick="window.location.href='/Userlogin'" class="button1">Users</button>
-    <!-- Adiciona mais botões conforme as páginas disponíveis -->
 </div>
 {% endblock %}
 
