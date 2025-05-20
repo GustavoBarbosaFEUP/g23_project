@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Userlogin demo PCII</title>
+    <title>Fashion Show</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block title %}{% endblock %}
 </head>
 <body>
@@ -15,8 +16,9 @@
                 <li><a class="button" href="/logoff">Logoff</a></li>
                 <li><a class="button" href="/designers">Designers</a></li>
                 <li><a class="button" href="/collections">Collections</a></li>
-                <li><a class="button" href="/fashionshows">Fashion Shows</a></li>
-                <li><a class="button" style="color:lightblue">User: {{ulogin}}</a></li>
+                <li><a class="button" href="/fashion_shows">Fashion Shows</a></li>
+                <li><a class="button" href="/designers_collections">Designers Collections</a></li>
+                <li><span class="button" style="color: lightblue;">User: {{ ulogin }}</span></li>
             {% endif %}
         </ul>
     </nav>
