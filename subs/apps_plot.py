@@ -6,7 +6,8 @@ from classes.collections import Collections
 
 def apps_plot():
     # Extrair os anos de lançamento das coleções (filtrando valores válidos)
-    anos = [c.release_year for c in Collections.obj.values() if c.release_year]
+    anos = [c.release_year.year for c in Collections.obj.values() if c.release_year]
+
 
     from collections import Counter
     contagem = Counter(anos)
