@@ -4,8 +4,8 @@ import plotly.express as px
 import os
 
 def apps_plotly():
-    # Caminho correto e simples para o CSV
-    csv_path = os.path.join('data', 'G23_Fashion – Designers  Collections with Fashion Shows_merged (1).csv')
+    # Caminho correto e simples para o CSV atualizado
+    csv_path = os.path.join('data', 'G23_Fashion.csv')
 
     try:
         df = pd.read_csv(csv_path)
