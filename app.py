@@ -11,6 +11,9 @@ from classes.designers_collections import Designers_collections
 # Importar os ficheiros de gestão
 import subs.index_subs as indexSubs
 import subs.index_userlogin as indexUserlogin
+from subs.apps_plot import apps_plot
+from subs.apps_plotly import apps_plotly
+
 
 app = Flask(__name__)
 app.secret_key = 'BAD_SECRET_KEY'
@@ -43,6 +46,15 @@ def dashboard():
     if "user" not in session:
         return redirect("/login")
     return render_template("dashboard.html", ulogin=session["user"])
+
+@app.route("/plot", methods=["POST", "GET"])
+def plot():
+    return apps_plot()
+
+@app.route("/plotly", methods=["POST", "GET"])
+def plotly():
+    return apps_plotly()
+
 
 # Logout
 @app.route("/logoff")
