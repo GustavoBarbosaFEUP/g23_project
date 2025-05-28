@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fashion Show</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    {% block title %}{% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Fashion Show{% endblock %}</title>
+
+    <!-- Google Fonts elegantes para moda -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
 <body>
     <nav>
@@ -18,21 +22,20 @@
                 <li><a class="button" href="/collections">Collections</a></li>
                 <li><a class="button" href="/fashion_shows">Fashion Shows</a></li>
                 <li><a class="button" href="/designers_collections">Designers Collections</a></li>
-                <li><span class="button" style="color: lightblue;">User: {{ ulogin }}</span></li>
+                <li><span class="button user-info">User: {{ ulogin }}</span></li>
                 <li><a class="button" href="/plot">Plot</a></li>
                 <li><a class="button" href="/plotly">Plotly</a></li>
-
             {% endif %}
         </ul>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        &copy; 2025 Fashion Show. Todos os direitos reservados.
+    </footer>
 </body>
 </html>
-
-
-
-
-
-
