@@ -18,6 +18,16 @@ from subs.apps_plotly import apps_plotly
 app = Flask(__name__)
 app.secret_key = 'BAD_SECRET_KEY'
 
+# Filtro customizado para formatação de datas no Jinja2
+from datetime import datetime
+
+@app.template_filter('datetimeformat')
+def datetimeformat(value, format='%d %b, %Y'):
+    if isinstance(value, str):
+        value = datetime.strptime(value, '%Y-%m-%d')  # adapta se o formato da tua data for diferente
+    return value.strftime(format)
+
+
 # Caminho para os ficheiros de base de dados
 path = 'data/'
 Designers.read(path + 'FashionDesigners.db')
@@ -55,7 +65,6 @@ def plot():
 def plotly():
     return apps_plotly()
 
-
 # Logout
 @app.route("/logoff")
 def logoff():
@@ -68,46 +77,6 @@ def data_overview():
     df = pd.read_csv("data/G23_Fashion – Designers  Collections with Fashion Shows_merged (1).csv")
     return render_template("data_overview.html", tables=[df.to_html(classes='data', header="true")], ulogin=session.get("user"))
 
-@app.route("/collections")
-def collections():
-    return render_template("collections.html", ulogin=session.get("user"))
-
-@app.route("/fashionshows")
-def fashionshows():
-    return render_template("fashionshows.html", ulogin=session.get("user"))
-
-@app.route("/designerscollections")
-def designerscollections():
-    return render_template("designers_collections.html", ulogin=session.get("user"))
-
-#@app.route("/Userlogin", methods=["GET", "POST"])
-#def userlogin():
- #   return indexUserlogin.index(path)
-
-@app.route("/designers", methods=["GET"])
-def designers_search():
-    id_query = request.args.get("id", "").lower()
-    name_query = request.args.get("name", "").lower()
-    nationality_query = request.args.get("nationality", "").lower()
-
-    all_designers = list(Designers.obj.values())
-
-    filtered_designers = [
-        d for d in all_designers
-        if (not id_query or id_query in str(d.designer_id).lower()) and
-           (not name_query or name_query in d.name.lower()) and
-           (not nationality_query or nationality_query in d.nationality.lower())
-    ]
-
-    return render_template(
-        "designers.html",
-        designers=filtered_designers,
-        id=id_query,
-        name=name_query,
-        nationality=nationality_query
-    )
-
-# Collections Page with Search
 @app.route("/collections", methods=["GET"])
 def collections_list():
     search_id = request.args.get("collection_id", "").lower()
@@ -139,7 +108,7 @@ def collections_list():
     )
 
 @app.route("/fashion_shows", methods=["GET"])
-def fashion_shows_list():
+def fashionshows():
     search_id = request.args.get("fashion_id", "")
     search_show_name = request.args.get("show_name", "").lower()
     search_venue = request.args.get("venue", "").lower()
@@ -153,7 +122,7 @@ def fashion_shows_list():
 
     return render_template("fashion_shows.html", fashion_shows=fashion_shows, 
                            fashion_id=search_id, show_name=search_show_name, 
-                           venue=search_venue, date=search_date)
+                           venue=search_venue, date=search_date, ulogin=session.get("user"))
 
 @app.route("/designers_collections", methods=["GET"])
 def designers_collections():
@@ -172,8 +141,32 @@ def designers_collections():
                            designers_collections=filtered_dc,
                            designer_id=designer_id,
                            collections_id=collections_id,
-                           contribution_percentage=contribution_percentage)
+                           contribution_percentage=contribution_percentage,
+                           ulogin=session.get("user"))
+
+@app.route("/designers", methods=["GET"])
+def designers_search():
+    id_query = request.args.get("id", "").lower()
+    name_query = request.args.get("name", "").lower()
+    nationality_query = request.args.get("nationality", "").lower()
+
+    all_designers = list(Designers.obj.values())
+
+    filtered_designers = [
+        d for d in all_designers
+        if (not id_query or id_query in str(d.designer_id).lower()) and
+           (not name_query or name_query in d.name.lower()) and
+           (not nationality_query or nationality_query in d.nationality.lower())
+    ]
+
+    return render_template(
+        "designers.html",
+        designers=filtered_designers,
+        id=id_query,
+        name=name_query,
+        nationality=nationality_query,
+        ulogin=session.get("user")
+    )
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(debug=True, use_reloader=False)
