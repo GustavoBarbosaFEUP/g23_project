@@ -1,34 +1,48 @@
-<div style="display: flex; align-items: flex-start;">
-    <!-- Formulário de pesquisa à esquerda -->
-    <div style="flex: 1;">
-        <h1>Designers Collections</h1>
-        <form action="/designers_collections" method="get">
-            <label for="designer_id">Designer ID:</label>
-            <input type="text" name="designer_id" value="{{ designer_id }}"><br><br>
+{% extends "base.html" %}
 
-            <label for="collections_id">Collection ID:</label>
-            <input type="text" name="collections_id" value="{{ collections_id }}"><br><br>
+{% block title %}Designers x Collections - Fashion Show{% endblock %}
 
-            <label for="contribution_percentage">Contribution %:</label>
-            <input type="text" name="contribution_percentage" value="{{ contribution_percentage }}"><br><br>
+{% block content %}
+<section class="section-wrapper">
+  <h1 class="section-title highlight">Colaborações entre Designers & Coleções</h1>
 
-            <button type="submit">Pesquisar</button>
-        </form>
+  <div class="form-image-container">
+    <!-- Formulário de pesquisa -->
+    <form action="/designers_collections" method="get" class="search-form">
+      <label for="designer_id">Designer ID:</label>
+      <input type="text" name="designer_id" value="{{ designer_id }}">
 
-        {% if designers_collections %}
-            <h2>Resultados:</h2>
-            {% for dc in designers_collections %}
-                <p>Designer ID: {{ dc.designer_id }} | Collection ID: {{ dc.collections_id }} | Contribution %: {{ dc.contribution_percentage }}</p>
-            {% endfor %}
-        {% endif %}
+      <label for="collections_id">Collection ID:</label>
+      <input type="text" name="collections_id" value="{{ collections_id }}">
+
+      <label for="contribution_percentage">Contribution %:</label>
+      <input type="text" name="contribution_percentage" value="{{ contribution_percentage }}">
+
+      <button type="submit">Pesquisar</button>
+    </form>
+
+    <!-- Imagem decorativa ao lado -->
+    <div class="form-image">
+      <img src="{{ url_for('static', filename='images/designers_collections.jpg') }}" alt="Colaboração Designers e Coleções">
     </div>
+  </div>
 
-    <!-- Imagem à direita -->
-    <div style="flex: 1; text-align: center;">
-        <img src="{{ url_for('static', filename='images/designers_collections.jpg') }}" alt="Designers Collections Image"
-             style="max-width:300px; height:auto; margin-top:50px; margin-left:-1200px;">
+  <!-- Resultados em Cards -->
+  {% if designers_collections %}
+    <div class="card-grid">
+      {% for dc in designers_collections %}
+        <div class="card">
+          <h3>Designer ID: {{ dc.designer_id }}</h3>
+          <p><strong>Coleção ID:</strong> {{ dc.collections_id }}</p>
+          <p><strong>Contribuição:</strong> {{ dc.contribution_percentage }}%</p>
+          <div class="progress-bar">
+            <div class="fill" style="width: {{ dc.contribution_percentage }}%;"></div>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-</div>
-
-
-
+  {% else %}
+    <p style="text-align:center; margin-top: 20px;">Nenhum resultado encontrado.</p>
+  {% endif %}
+</section>
+{% endblock %}
