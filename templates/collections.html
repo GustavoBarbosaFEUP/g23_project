@@ -1,39 +1,93 @@
-<div style="display: flex; align-items: flex-start;">
-    <!-- Formulário de pesquisa à esquerda -->
-    <div style="flex: 1;">
-        <h1>Collections</h1>
-        <form action="/collections" method="get">
-            <label for="collection_id">ID:</label>
-            <input type="text" name="collection_id" value="{{ collection_id }}">
-            <br><br>
-            <label for="style">Style:</label>
-            <input type="text" name="style" value="{{ style }}">
-            <br><br>
-            <label for="theme">Theme:</label>
-            <input type="text" name="theme" value="{{ theme }}">
-            <br><br>
-            <label for="season">Season:</label>
-            <input type="text" name="season" value="{{ season }}">
-            <br><br>
-            <label for="release_year">Release Year:</label>
-            <input type="text" name="release_year" value="{{ release_year }}">
-            <br><br>
-            <button type="submit">Pesquisar</button>
-        </form>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Fashion Show{% endblock %}</title>
 
-        <!-- Resultados sempre aparecem -->
-        <h2>Resultados:</h2>
-        {% for c in collections %}
-            <p>ID: {{ c.collection_id }} | Style: {{ c.style }} | Theme: {{ c.theme }} | Season: {{ c.season }} | Release Year: {{ c.release_year }}</p>
-        {% endfor %}
-    </div>
+    <!-- Fontes premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
 
-    <!-- Imagem à direita -->
-    <div style="flex: 1; text-align: center;"> 
-    <img src="{{ url_for('static', filename='images/collections.jpg') }}" alt="Designer Image" 
-         style="max-width:300px; height:auto; margin-top:50px; margin-left:-1200px;">
-</div>
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <!-- BOTÃO DARK MODE -->
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+
+   
+
+    <!-- NAVBAR ELEGANTE -->
+    <nav class="navbar">
+        <div class="navbar-logo">Fashion Show</div>
+        <ul class="navbar-menu">
+            {% if ulogin == None %}
+                <li><a class="nav-button" href="/login">Login</a></li>
+            {% else %}
+                <li><a class="nav-button" href="/logoff">Logoff</a></li>
+                <li><a class="nav-button" href="/designers">Designers</a></li>
+                <li><a class="nav-button" href="/collections">Coleções</a></li>
+                <li><a class="nav-button" href="/fashion_shows">Desfiles</a></li>
+                <li><a class="nav-button" href="/designers_collections">Designers/Coleções</a></li>
+                <li><a class="nav-button" href="/plot">Plot</a></li>
+                <li><a class="nav-button" href="/plotly">Plotly</a></li>
+                <li><span class="nav-button user-info">Olá, {{ ulogin }}</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        &copy; 2025 Fashion Show. Todos os direitos reservados.
+    </footer>
+
+    <!-- SCRIPT DARK MODE -->
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark');
+            }
+        };
+    </script>
+
+    <!-- SCRIPT SLIDESHOW DAS IMAGENS DAS IMAGE-BOX -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const boxes = document.querySelectorAll('.image-box');
+
+      boxes.forEach(box => {
+        const images = JSON.parse(box.getAttribute('data-images'));
+        let current = 0;
+
+        // Cria os elementos img dentro do box
+        images.forEach((src, i) => {
+          const img = document.createElement('img');
+          img.src = "{{ url_for('static', filename='images/') }}" + src;
+          if (i === 0) img.classList.add('active');
+          box.appendChild(img);
+        });
+
+        const imgs = box.querySelectorAll('img');
+
+        setInterval(() => {
+          imgs[current].classList.remove('active');
+          current = (current + 1) % imgs.length;
+          imgs[current].classList.add('active');
+        }, 3000);
+      });
+    });
+    </script>
 
 
-
-
+</body>
+</html>
