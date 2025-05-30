@@ -1,35 +1,54 @@
-<div style="display: flex; align-items: flex-start;">
-    <!-- Formulário de pesquisa à esquerda -->
-    <div style="flex: 1;">
-        <h1>Fashion Shows</h1>
-        <form action="/fashion_shows" method="get">
-            <label for="fashion_id">ID:</label>
-            <input type="text" name="fashion_id" value="{{ fashion_id }}"><br><br>
+{% extends "base.html" %}
 
-            <label for="show_name">Show Name:</label>
-            <input type="text" name="show_name" value="{{ show_name }}"><br><br>
+{% block title %}Fashion Shows - Fashion Show{% endblock %}
 
-            <label for="venue">Venue:</label>
-            <input type="text" name="venue" value="{{ venue }}"><br><br>
+{% block content %}
+<section class="section-wrapper">
+  <h1 class="section-title highlight">Fashion Shows</h1>
 
-            <label for="date">Date:</label>
-            <input type="text" name="date" value="{{ date }}"><br><br>
+  <div class="form-image-container">
+    <!-- Formulário estilizado -->
+    <form action="/fashion_shows" method="get" class="search-form">
+      <label for="fashion_id">ID:</label>
+      <input type="text" name="fashion_id" value="{{ fashion_id }}" placeholder="Ex: 123">
 
-            <button type="submit">Pesquisar</button>
-        </form>
+      <label for="show_name">Show Name:</label>
+      <input type="text" name="show_name" value="{{ show_name }}" placeholder="Nome do desfile">
 
-        {% if fashion_shows %}
-            <h2>Resultados:</h2>
-            {% for f in fashion_shows %}
-                <p>ID: {{ f.fashion_id }} | Show Name: {{ f.show_name }} | Venue: {{ f.venue }} | Date: {{ f.date }}</p>
-            {% endfor %}
-        {% endif %}
+      <label for="venue">Venue:</label>
+      <input type="text" name="venue" value="{{ venue }}" placeholder="Local do evento">
+
+      <label for="date">Date:</label>
+      <input type="date" name="date" value="{{ date }}">
+
+      <button type="submit" class="btn-primary">Pesquisar</button>
+    </form>
+
+    <!-- Imagem ao lado -->
+    <div class="form-image">
+      <img src="{{ url_for('static', filename='images/fashion_shows.jpg') }}" alt="Fashion Shows">
     </div>
+  </div>
 
-    <!-- Imagem à direita -->
-    <div style="flex: 1; text-align: center;"> 
-    <img src="{{ url_for('static', filename='images/fashion_shows.jpg') }}" alt="Designer Image" 
-         style="max-width:300px; height:auto; margin-top:50px; margin-left:-1200px;">
-</div>
+  <!-- Resultados como cards + timeline -->
+  {% if fashion_shows %}
+    <div class="card-grid timeline">
+      {% for f in fashion_shows %}
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ f.show_name }}</h3>
+            <span class="date">{{ f.date | datetimeformat("%d %b, %Y") }}</span>
+          </div>
+          <p><strong>ID:</strong> {{ f.fashion_id }}</p>
+          <p><strong>Venue:</strong> {{ f.venue }}</p>
 
-
+          <!-- Linha do tempo com marcador -->
+          <div class="timeline-marker" title="Show Date: {{ f.date }}"></div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-results">Nenhum resultado encontrado.</p>
+  {% endif %}
+</section>
+{% endblock %}
