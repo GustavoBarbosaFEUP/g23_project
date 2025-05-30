@@ -1,60 +1,99 @@
 {% extends "base.html" %}
 
-{% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-{% endblock %}
+{% block title %}Login - Fashion Show{% endblock %}
 
 {% block content %}
-<div class="dados">
-    <img src="{{ url_for('static', filename='images/Userlogin.png')}}" alt="userlogin" width="200" height="200">
-    <h1>Userlogin</h1>
-    <br>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+  }
 
-    <button id="edit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=edit'" class="button1">Edit</button>
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-    {% if group == 'admin' %}
-        <button id="delete" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=delete'" class="button1">Delete</button>
-        <button id="insert" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=insert'" class="button1">Insert</button>
+  .login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+  }
+
+  .login-box {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    color: #333;
+    z-index: 10;
+  }
+
+  .login-box h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: 500;
+    color: #000;
+  }
+
+  .login-box input[type="text"],
+  .login-box input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    outline: none;
+  }
+
+  .login-box button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #ff758c;
+    background: linear-gradient(90deg, #ff758c 0%, #ff7eb3 100%);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .login-box button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  .login-box .error-msg {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="login-wrapper">
+  <form class="login-box" method="POST" action="/login">
+    <h2>Bem-vindo ao Fashion Show</h2>
+    <input type="text" name="user" placeholder="Nome de utilizador" required>
+    <!-- <input type="password" name="password" placeholder="Senha" required> -->
+    <button type="submit">Entrar</button>
+    {% if msg %}
+      <p class="error-msg">{{ msg }}</p>
     {% endif %}
-
-    <button id="save" type="submit" form="form" {{butedit}} class="button1">Save</button>
-    <button id="cancel" type="button" {{butedit}} onclick="window.location.href = '/Userlogin?option=cancel'" class="button1">Cancel</button>
-    <button id="exit" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=exit'" class="button1">Exit</button>
-
-    <form id="form" action="/Userlogin?option=save" method="post">
-        {% if group == "admin" %}
-            <label for="id">Id:</label>
-            <input type="text" disabled id="id" name="id" value="{{id}}" size="4"/><br>
-
-            <label for="user">User:</label>
-            <input type="text" {{butedit}} id="user" name="user" value="{{user}}" size="40"/><br>
-
-            <label for="usergroup">Group:</label>
-            <input type="text" {{butedit}} id="usergroup" name="usergroup" value="{{usergroup}}" size="40"/><br>
-        {% else %}
-            <label for="id">Id:</label>
-            <input type="text" disabled id="id" name="id" value="{{id}}" size="4"/><br>
-
-            <label for="user">User:</label>
-            <input type="text" disabled id="user" name="user" value="{{user}}" size="40"/><br>
-
-            <label for="usergroup">Group:</label>
-            <input type="text" disabled id="usergroup" name="usergroup" value="{{usergroup}}" size="40"/><br>
-        {% endif %}
-
-        <label for="password">Password:</label>
-        <input type="text" {{butedit}} id="password" name="password" size="40"/>
-    </form>
-
-    {% if group == "admin" %}
-        <button id="first" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=first'" class="button1">First</button>
-        <button id="previous" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=previous'" class="button1">Previous</button>
-        <button id="next" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=next'" class="button1">Next</button>
-        <button id="last" type="button" {{butshow}} onclick="window.location.href = '/Userlogin?option=last'" class="button1">Last</button>
-    {% endif %}
-
-    <p style="color: red;">{{msg}}</p>
+  </form>
 </div>
 {% endblock %}
-
 
