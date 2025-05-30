@@ -5,37 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Fashion Show{% endblock %}</title>
 
-    <!-- Google Fonts elegantes para moda -->
+    <!-- Fontes premium -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
 
     <!-- CSS principal -->
-   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
 </head>
 <body>
-    <nav>
-        <ul class="menu">
+    <!-- BOTÃO DARK MODE -->
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+
+   
+
+    <!-- NAVBAR ELEGANTE -->
+    <nav class="navbar">
+        <div class="navbar-logo">Fashion Show</div>
+        <ul class="navbar-menu">
             {% if ulogin == None %}
-                <li><a class="button" href="/login">Login</a></li>
+                <li><a class="nav-button" href="/login">Login</a></li>
             {% else %}
-                <li><a class="button" href="/logoff">Logoff</a></li>
-                <li><a class="button" href="/designers">Designers</a></li>
-                <li><a class="button" href="/collections">Collections</a></li>
-                <li><a class="button" href="/fashion_shows">Fashion Shows</a></li>
-                <li><a class="button" href="/designers_collections">Designers Collections</a></li>
-                <li><span class="button user-info">User: {{ ulogin }}</span></li>
-                <li><a class="button" href="/plot">Plot</a></li>
-                <li><a class="button" href="/plotly">Plotly</a></li>
+                <li><a class="nav-button" href="/logoff">Logoff</a></li>
+                <li><a class="nav-button" href="/designers">Designers</a></li>
+                <li><a class="nav-button" href="/collections">Coleções</a></li>
+                <li><a class="nav-button" href="/fashion_shows">Desfiles</a></li>
+                <li><a class="nav-button" href="/designers_collections">Designers/Coleções</a></li>
+                <li><a class="nav-button" href="/plot">Plot</a></li>
+                <li><a class="nav-button" href="/plotly">Plotly</a></li>
+                <li><span class="nav-button user-info">Olá, {{ ulogin }}</span></li>
             {% endif %}
         </ul>
     </nav>
 
-    <main>
-        {% block content %}
-        {% endblock %}
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
     </main>
 
-    <footer>
+    <!-- RODAPÉ -->
+    <footer class="footer">
         &copy; 2025 Fashion Show. Todos os direitos reservados.
     </footer>
+
+    <!-- SCRIPT DARK MODE -->
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark');
+            }
+        };
+    </script>
+
+    <!-- SCRIPT SLIDESHOW DAS IMAGENS DAS IMAGE-BOX -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const boxes = document.querySelectorAll('.image-box');
+
+      boxes.forEach(box => {
+        const images = JSON.parse(box.getAttribute('data-images'));
+        let current = 0;
+
+        // Cria os elementos img dentro do box
+        images.forEach((src, i) => {
+          const img = document.createElement('img');
+          img.src = "{{ url_for('static', filename='images/') }}" + src;
+          if (i === 0) img.classList.add('active');
+          box.appendChild(img);
+        });
+
+        const imgs = box.querySelectorAll('img');
+
+        setInterval(() => {
+          imgs[current].classList.remove('active');
+          current = (current + 1) % imgs.length;
+          imgs[current].classList.add('active');
+        }, 3000);
+      });
+    });
+    </script>
+
+
 </body>
 </html>
