@@ -1,191 +1,773 @@
-/* Reset básico e fonte */
+/* ------------------ */
+/* RESET E FONTES     */
+/* ------------------ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f9f9fb;
-    color: #333;
-    min-height: 100vh;
-    line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f8f8;
+  color: #111;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* --- NAVBAR --- */
-nav {
-    background-color: #3f51b5; /* azul elegante */
-    padding: 15px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* ------------------ */
+/* DARK MODE          */
+/* ------------------ */
+body.dark {
+  background-color: #111;
+  color: #f8f8f8;
 }
 
-.menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
+body.dark .navbar {
+  background-color: #1a1a1a;
 }
 
-.menu li {
-    display: inline;
+body.dark .nav-button {
+  background-color: #fff;
+  color: #000;
 }
 
-.menu li .button {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+body.dark .nav-button:hover {
+  background-color: #ccc;
 }
 
-.menu li .button:hover,
-.menu li .button:focus {
-    background-color: #7986cb;
-    color: #fff;
-    outline: none;
+body.dark input,
+body.dark .login-form input {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
 }
 
-/* User label */
-.menu li span.button {
-    cursor: default;
-    background-color: transparent;
-    color: #c5cae9;
-    font-weight: 700;
+body.dark .login-button {
+  background-color: #fff;
+  color: #000;
 }
 
-/* --- CONTENT WRAPPER --- */
-.container {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
+body.dark .login-button:hover {
+  background-color: #ddd;
+  color: #000;
 }
 
-/* --- HEADINGS --- */
-h1, h2, h3 {
-    margin-bottom: 20px;
-    color: #3f51b5;
-    font-weight: 700;
+body.dark .login-form {
+  background-color: #1a1a1a;
 }
 
-h1 {
-    font-size: 2.5rem;
+body.dark .dark-toggle {
+  background: #222;
+  color: #fff;
 }
 
-h2 {
-    font-size: 2rem;
+body.dark .dark-toggle:hover {
+  background: #444;
 }
 
-h3 {
-    font-size: 1.5rem;
+/* ------------------ */
+/* NAVBAR + HAMBURGUER */
+/* ------------------ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
 }
 
-/* --- PARAGRAPHS --- */
-p {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    color: #555;
+.navbar-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #111;
 }
 
-/* --- BUTTONS --- */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.navbar-menu li {
+  display: inline;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+}
+
+.user-info {
+  background-color: #444;
+  cursor: default;
+}
+
+/* ------------------ */
+/* DARK MODE TOGGLE   */
+/* ------------------ */
+.dark-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #eee;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.dark-toggle:hover {
+  background-color: #ddd;
+}
+
+/* ------------------ */
+/* LOGIN - LAYOUT     */
+/* ------------------ */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.login-image {
+  flex: 1;
+  position: relative;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  animation: fadeInOut 24s infinite;
+}
+
+.login-image img:nth-child(1) {
+  animation-delay: 0s;
+}
+.login-image img:nth-child(2) {
+  animation-delay: 8s;
+}
+.login-image img:nth-child(3) {
+  animation-delay: 16s;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  30% { opacity: 1; }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.login-form {
+  flex: 1;
+  background: #ffffff;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.login-form h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  font-weight: 600;
+  color: inherit;
+}
+
+.login-form label {
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: inherit;
+  display: block;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  font-size: 1em;
+}
+
+.login-form input:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  background: #000;
+  color: white;
+  padding: 14px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background: #333;
+}
+
+.error {
+  color: #d00000;
+  margin-top: 20px;
+  font-size: 0.95em;
+}
+
+/* ------------------ */
+/* Container geral para dados (userlogin) */
+/* ------------------ */
+.dados {
+  position: relative;
+  z-index: 10;
+  background: rgba(0,0,0,0.75);
+  padding: 20px 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 40px auto 60px auto;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  /* Removido box-shadow para manter efeito clean, pode adicionar se quiser */
+}
+
+.dados img {
+  display: block;
+  margin: 0 auto 30px auto;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 4px solid #1a1a1a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dados h1 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+.dados label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+.dados input[type="text"], 
+.dados input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.3s ease;
+  background-color: #fafafa;
+  color: #111;
+}
+
+.dados input[type="text"]:focus,
+.dados input[type="password"]:focus {
+  outline: none;
+  border-color: #333;
+  background-color: #fff;
+}
+
+/* Botões principais */
 .button1 {
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 15px 10px 0 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  user-select: none;
 }
 
 .button1:hover {
-    background-color: #283593;
+  background-color: #333;
+  transform: translateY(-2px);
 }
 
-.button1:disabled {
-    background-color: #b0bec5;
-    cursor: not-allowed;
-    color: #eceff1;
+.button1[disabled], .button1[hidden] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
-/* --- TABLES --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 40px;
-    font-size: 1rem;
+/* Mensagem de erro */
+.dados p[style*="color: red"] {
+  margin-top: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #d00000;
 }
 
-th, td {
-    text-align: left;
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
+/* ------------------ */
+/* GALERIA DE IMAGENS */
+/* ------------------ */
+.gallery {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-th {
-    background-color: #3f51b5;
-    color: white;
-    font-weight: 700;
+.image-box {
+  width: 180px;
+  height: 120px;
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
 }
 
-tr:nth-child(even) {
-    background-color: #f3f4f6;
+.image-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
-/* --- FORMS --- */
-form {
-    max-width: 600px;
-    margin: 20px auto 40px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.image-box img.active {
+  opacity: 1;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    border: 1.5px solid #ccc;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+/* ------------------ */
+/* Grid fixo de imagens no fundo */
+/* ------------------ */
+.image-grid {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 150px;
+  gap: 10px;
+  padding: 10px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-select:focus,
-textarea:focus {
-    border-color: #3f51b5;
-    outline: none;
+.image-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  filter: brightness(0.6);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-/* --- RESPONSIVO --- */
+.image-grid img:hover {
+  filter: brightness(1);
+  transform: scale(1.05);
+  z-index: 2;
+  position: relative;
+}
+
+/* ------------------ */
+/* RESPONSIVIDADE     */
+/* ------------------ */
 @media (max-width: 768px) {
-    nav .menu {
-        flex-direction: column;
-        gap: 10px;
-    }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 20px;
+  }
 
-    .container {
-        margin: 20px 10px;
-        padding: 0 10px;
-    }
+  .dados {
+    padding: 20px 30px;
+    margin: 20px 10px;
+  }
 
-    table {
-        font-size: 0.9rem;
-    }
+  .button1 {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .gallery {
+    gap: 15px;
+  }
+
+  .image-box {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 120px;
+  }
+}
+/* Layout bonito para formulário + imagem */
+.form-image-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  margin: 40px 0;
+}
+
+.search-form {
+  flex: 1;
+  min-width: 280px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.search-form label {
+  font-weight: 600;
+  margin-top: 16px;
+  display: block;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.search-form button {
+  margin-top: 10px;
+}
+
+.form-image {
+  flex: 1;
+  text-align: center;
+}
+
+.form-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Reutilização */
+.section-wrapper {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+/* Cartões com resultados */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+/* Estilo específico para página de designers_collections */
+.section-title.highlight {
+  color: #d32f2f;
+  font-size: 2.8rem;
+}
+.progress-bar {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 16px;
+  margin-top: 8px;
+}
+
+.progress-bar .fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.5s ease-in-out;
+}
+/* Reutilização e estilos base já definidos */
+/* Estilos específicos para Fashion Shows */
+
+.section-title.highlight {
+  color: #b71c1c;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+.form-image-container {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.search-form {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+.search-form label {
+  font-weight: 700;
+  display: block;
+  margin-top: 20px;
+  color: #444;
+  font-size: 1rem;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1.8px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-form input:focus {
+  border-color: #b71c1c;
+  outline: none;
+}
+
+.btn-primary {
+  margin-top: 30px;
+  background-color: #b71c1c;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #7f1212;
+}
+
+.form-image {
+  flex: 1;
+  text-align: center;
+  min-width: 300px;
+}
+
+.form-image img {
+  max-width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.15);
+  object-fit: cover;
+}
+
+/* Cards + timeline */
+
+.card-grid.timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  transition: transform 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.card-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #b71c1c;
+  margin: 0;
+}
+
+.date {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #777;
+  font-style: italic;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #444;
+  margin: 8px 0;
+}
+
+/* Timeline marker — um círculo elegante ao lado */
+.timeline-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #b71c1c;
+  box-shadow: 0 0 6px rgba(183, 28, 28, 0.6);
+  position: absolute;
+  top: 25px;
+  right: 20px;
+}
+
+/* Mensagem caso não haja resultados */
+.no-results {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #999;
+  margin-top: 50px;
+  font-style: italic;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Grid dinâmico de imagens no fundo */
+.dynamic-background {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    padding: 15px;
+    z-index: 0;
+    filter: brightness(0.2);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.dynamic-background div {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center center;
+    transition: background-image 1.5s ease-in-out;
+}
+
+.center-content {
+    position: relative;
+    padding-top: 100px;
+    z-index: 10;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.center-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 0.2em;
+}
+
+.center-content h2 {
+    font-weight: 300;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-top: 0;
+}
+
+.footer-image {
+    position: relative;
+    margin-top: 50px;
+    max-width: 500px;
+    opacity: 0.9;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    z-index: 10;
 }
