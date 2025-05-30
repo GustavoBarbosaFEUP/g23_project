@@ -1,39 +1,42 @@
-<div style="display: flex; align-items: flex-start;">
-    <!-- Formulário de pesquisa à esquerda -->
-    <div style="flex: 1;">
-        <h1>Designer</h1>
-        <form action="/designers" method="get">
-            <label for="id">ID:</label>
-            <input type="text" name="id" value="{{ id }}">
-            <br><br>
-            <label for="name">Name:</label>
-            <input type="text" name="name" value="{{ name }}">
-            <br><br>
-            <label for="nationality">Nationality:</label>
-            <input type="text" name="nationality" value="{{ nationality }}">
-            <br><br>
-            <button type="submit">Pesquisar</button>
-        </form>
+{% extends "base.html" %}
 
-        {% if designers %}
-            <h2>Resultados:</h2>
-            {% for d in designers %}
-                <p>ID: {{ d.designer_id }} | Nome: {{ d.name }} | Nacionalidade: {{ d.nationality }}</p>
-            {% endfor %}
-        {% endif %}
+{% block title %}Designers - Fashion Show{% endblock %}
+
+{% block content %}
+<section class="section-wrapper">
+  <h1 class="section-title">Pesquisa de Designers</h1>
+  
+  <div class="form-image-container">
+    <!-- Formulário de pesquisa -->
+    <form class="search-form" action="/designers" method="get">
+      <label for="id">ID:</label>
+      <input type="text" name="id" value="{{ id }}">
+
+      <label for="name">Nome:</label>
+      <input type="text" name="name" value="{{ name }}">
+
+      <label for="nationality">Nacionalidade:</label>
+      <input type="text" name="nationality" value="{{ nationality }}">
+
+      <button type="submit" class="button1">Pesquisar</button>
+    </form>
+
+    <!-- Imagem decorativa -->
+    <div class="form-image">
+      <img src="{{ url_for('static', filename='images/designer.jpg') }}" alt="Designer" />
     </div>
+  </div>
 
-    <!-- Imagem à direita, mais próxima dos filtros -->
-    <div style="flex: 1; text-align: center;">
-        <img src="{{ url_for('static', filename='images/designer.jpg') }}" alt="Designer Image" 
-             style="max-width:300px; height:auto; margin-left:-1200px;">
+  {% if designers %}
+  <div class="card-grid">
+    {% for d in designers %}
+    <div class="card">
+      <h3>{{ d.name }}</h3>
+      <p><strong>ID:</strong> {{ d.designer_id }}</p>
+      <p><strong>Nacionalidade:</strong> {{ d.nationality }}</p>
     </div>
-</div>
-
-
-
-
-
-
-
-
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
