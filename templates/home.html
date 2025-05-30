@@ -1,37 +1,59 @@
 {% extends "base.html" %}
 
 {% block title %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        position: relative;
-        min-height: 100vh;
-    }
-    .center-content {
-        padding-top: 80px; /* Sobe o título */
-    }
-    .footer-image {
-        position: absolute;
-        bottom: 100px; /* Sobe a imagem */
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 500px; /* Aumenta o tamanho da imagem */
-        opacity: 0.9;
-    }
-</style>
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        
+    </style>
 {% endblock %}
 
 {% block content %}
-<div class="center-content">
-    <h1>Fashion Show</h1>
-    <h2>G23 - César Ferreira, Domingos Almeida, Francisco Vilhena, Gustavo Barbosa, Rodrigo Castilho</h2>
-</div>
+    <!-- Fundo de imagens dinâmico -->
+    <div class="dynamic-background" aria-hidden="true" id="dynamic-bg"></div>
 
-<img src="{{ url_for('static', filename='images/home.jpg') }}" alt="Home Image" class="footer-image">
+    <!-- Conteúdo central -->
+    <div class="center-content">
+     <h1 style="font-size: 7rem; font-family: 'Playfair Display', serif;">
+      Fashion Show
+     </h1>
+     <h2 style="font-size: 2rem; font-weight: normal; margin-top: 10px; font-family: 'Poppins', sans-serif;">
+      "Fashion is the visual translation of personality, where style blends with elegance to create a striking presence."
+     </h2>
+    </div>
+
+
+
+        
+    
+    </div>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const images = [
+          'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg',
+          'img6.jpg', 'img7.jpg', 'img8.jpg', 'img9.jpg', 'img10.jpg',
+          'img11.jpg', 'img12.jpg', 'img13.jpg', 'img14.jpg', 'img15.jpg',
+          'img16.jpg', 'img17.jpg', 'img18.jpg', 'img19.jpg', 'img20.jpg',
+        ];
+
+        const container = document.getElementById('dynamic-bg');
+        const totalBlocks = 30;
+
+        for (let i = 0; i < totalBlocks; i++) {
+          const div = document.createElement('div');
+          div.style.backgroundImage = `url('{{ url_for("static", filename="images/") }}${images[Math.floor(Math.random() * images.length)]}')`;
+          container.appendChild(div);
+        }
+
+        function swapRandomImage() {
+          const blocks = container.children;
+          const index = Math.floor(Math.random() * blocks.length);
+          const newImg = images[Math.floor(Math.random() * images.length)];
+          blocks[index].style.backgroundImage = `url('{{ url_for("static", filename="images/") }}${newImg}')`;
+        }
+
+        setInterval(swapRandomImage, 5000);
+      });
+    </script>
 {% endblock %}
-
-
-
