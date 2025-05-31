@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<link rel='stylesheet' href="{{ url_for('static', filename='css/main.css')}}"/>
+{% endblock %}
+
+{% block content %}
+<div class="data-section">
+    <h2 style="text-align: center;">Fashion Statistics</h2>
+    
+    <!-- Main container centered -->
+    <div style="max-width: 1000px; margin: 0 auto; padding: 20px;">
+        <!-- Chart 1: Collections per Year -->
+        <div class="chart-container" style="display: flex; justify-content: center;">
+            <div id="plotly-div1" style="width: 90%; height: 500px;"></div>
+        </div>
+
+        <!-- Chart 2: Top Nationalities -->
+        <div class="chart-container" style="display: flex; justify-content: center;">
+            <div id="plotly-div2" style="width: 90%; height: 500px;"></div>
+        </div>
+
+        <!-- Chart 3: Top Contributors -->
+        <div class="chart-container" style="display: flex; justify-content: center;">
+            <div id="plotly-div3" style="width: 90%; height: 500px;"></div>
+        </div>
+
+        <!-- Chart 4: Fashion Shows Over Time -->
+        <div class="chart-container" style="display: flex; justify-content: center;">
+            <div id="plotly-div4" style="width: 90%; height: 500px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Plotly library -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<script>
+    // Render chart 1
+    var plot_data1 = {{ graphJSON1 | safe }};
+    Plotly.newPlot('plotly-div1', plot_data1.data, plot_data1.layout);
+    
+    // Render chart 2
+    var plot_data2 = {{ graphJSON2 | safe }};
+    Plotly.newPlot('plotly-div2', plot_data2.data, plot_data2.layout);
+
+    // Render chart 3
+    var plot_data3 = {{ graphJSON3 | safe }};
+    Plotly.newPlot('plotly-div3', plot_data3.data, plot_data3.layout);
+
+    // Render chart 4
+    var plot_data4 = {{ graphJSON4 | safe }};
+    Plotly.newPlot('plotly-div4', plot_data4.data, plot_data4.layout);
+</script>
+
+<style>
+    .chart-container {
+        margin-bottom: 50px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        background-color: white;
+    }
+    
+    .js-plotly-plot {
+        margin: 0 auto !important;
+    }
+</style>
+{% endblock %}
+
