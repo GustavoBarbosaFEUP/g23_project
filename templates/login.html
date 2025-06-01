@@ -1,34 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 {% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <!-- Slideshow automático no lado esquerdo -->
-    <div class="login-image">
-        <img src="{{ url_for('static', filename='images/slide1.jpg') }}" alt="Imagem 1">
-        <img src="{{ url_for('static', filename='images/slide2.jpg') }}" alt="Imagem 2">
-        <img src="{{ url_for('static', filename='images/slide3.jpg') }}" alt="Imagem 3">
-    </div>
-
-    <!-- Formulário de login -->
-    <div class="login-form">
-        <h2>Iniciar Sessão</h2>
-        <form method="POST">
-            <label for="user">Utilizador</label>
-            <input type="text" id="user" name="user" required>
-
-            <label for="password">Senha</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit" class="login-button">Entrar</button>
+    <div class = "dados">
+        <br><br>
+        <h1>Login</h1>
+        <br>
+        <form id="form" action="/chklogin" method="post">
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user"  value = "{{user}}" size="30"/>
+            <br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value = "{{password}}" size="30"/>
+            <br><br>
+            <button type="submit" class="button1">Login</button>
         </form>
-        {% if msg %}
-            <p class="error">{{ msg }}</p>
-        {% endif %}
+        <br><br>
+        <h3 style="color: red;">{{resul}}</h3>
     </div>
-</div>
-{% endblock %}
+{% endblock %}
