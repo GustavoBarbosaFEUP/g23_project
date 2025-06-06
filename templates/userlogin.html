@@ -85,10 +85,10 @@
 </style>
 
 <div class="login-wrapper">
-  <form class="login-box" method="POST" action="/login">
+  <form class="login-box" method="POST" action="/chklogin">
     <h2>Bem-vindo ao Fashion Show</h2>
     <input type="text" name="user" placeholder="Nome de utilizador" required>
-    <!-- <input type="password" name="password" placeholder="Senha" required> -->
+    <input type="password" name="password" placeholder="Senha" required>
     <button type="submit">Entrar</button>
     {% if msg %}
       <p class="error-msg">{{ msg }}</p>
@@ -96,4 +96,5 @@
   </form>
 </div>
 {% endblock %}
+
 
